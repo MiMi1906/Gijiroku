@@ -24,31 +24,10 @@ $('.like').on('click', function () {
     .always((_data) => {
 
     });
-})
+});
 
 $('.link').on('click', function () {
   let id = $(this).attr("id");
   let url = '/thread/?id=' + id.slice(1)
   window.location.href = url;
-})
-
-
-var inputText = document.querySelector('textarea');
-var input = document.querySelector('.emoji');
-var picker = new EmojiButton({
-  i18n: {
-    search: '絵文字を検索..',
-    notFound: '絵文字が見つかりませんでした..'
-  },
-})
-
-picker.on('emoji', function (emoji) {
-  inputText.value += emoji;
-})
-
-input.addEventListener('click', function () {
-
-  picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input)
-})
-
-
+});

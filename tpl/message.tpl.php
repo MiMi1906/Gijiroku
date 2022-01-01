@@ -1,4 +1,4 @@
-<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply<?php endif; ?>">
+<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply <?php endif; ?><?php if ($v->member_id == $_SESSION['id']) : ?>my_post<?php endif; ?>">
   <div class="image">
     <a href="/profile/?id=<?php echo h($v->member_id); ?>">
       <img src="/resource/image/icon/<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
@@ -22,14 +22,14 @@
     <div class="menu_group">
       <div class="menu_list reply">
         <object data="" type="">
-          <a href="/post/?res=<?php echo h($v->id) ?>">
+          <a href="/?res=<?php echo h($v->id) ?>#send_window">
             <i class="fas fa-reply"></i>
           </a>
         </object>
       </div>
       <div class="menu_list quote">
         <object data="" type="">
-          <a href="/post/?quote=<?php echo h($v->id); ?>"><i class="fas fa-quote-right"></i></a>
+          <a href="/?quote=<?php echo h($v->id); ?>#send_window"><i class="fas fa-quote-right"></i></a>
         </object>
       </div>
       <div class="menu_list like" id="<?php echo $v->id; ?>">

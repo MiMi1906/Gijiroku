@@ -171,7 +171,7 @@ a{
   flex-direction: column;
   max-width: 600px;
   width: 90%;
-  margin: 20px auto 0;
+  margin: 20px auto;
 }
 
 .send{
@@ -179,31 +179,51 @@ a{
   flex-direction: column;
 }
 
-.send .res_detail a{
-  color: var(--main-color);
+.send_window{
+  background-color: var(--background-color);
+  border-radius: 5px;
+  padding: 25px;
 }
 
-.send .res_detail a:hover{
+.send_window .res_detail{
+  width: 100%;
+  text-align: left;
+}
+
+.send_window .res_detail a{
+  color: var(--main-color);
+
+}
+
+.send_window .res_detail a:hover{
   text-decoration: underline;
 }
 
-.send .message{
+.send_window .message{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100px;
   font-size: 16px;
-  padding: 5px;
+  padding: 7.5px;
   resize: none;
   border: none;
-  border-radius: 0;
-  border-bottom: 1px solid var(--main-color);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 1px solid var(--sub-color);
+  border-bottom: 2px solid var(--main-color);
+  border-left: 1px solid var(--sub-color);
+  border-right: 1px solid var(--sub-color);
   background-color: var(--background-color);
 }
 
-.send .message:focus-visible{
+.send_window .message:focus-visible{
   outline: none;
 }
 
-.send .menu_group{
+.send_window .menu_group{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -215,25 +235,20 @@ a{
   color: var(--main-color);
 }
 
-.send .menu_list i{
+.send_window .menu_list i{
   cursor: pointer;
 }
 
-.send .submit{
-  display: flex;
+.send_window .submit{
   width: 100%;
-  justify-content: right;
+  text-align: right;
 }
 
-.send .submit input{
-  display: flex;
-  position: fixed;
-  align-items: center;
-  bottom: calc(var(--footer-bar-height) + 20px);
-  justify-content: center;
+.send_window .submit input{
   width: 120px;
-  height: 50px;
-  border-radius: 20px;
+  height: 45px;
+  border-radius: 22.5px;
+  margin-top: 10px;
   outline: none;
   border: none;
   background-color: var(--main-color);
@@ -242,6 +257,7 @@ a{
   font-weight: bold;
   transition: opacity .3s ease-in-out;
   font-size: 16px;
+  letter-spacing: 1px;
 }
 
 .send .submit button{
@@ -272,15 +288,27 @@ a{
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 10px;
-  border-left: var(--border-color) 1px solid;
-  border-right: var(--border-color) 1px solid;
-  border-bottom: var(--border-color) 1px solid;
+  padding-bottom: 0;
+  border: var(--border-color) 2px solid;
+  box-shadow: 0 0 20px #ddd;
+  border-radius: 20px;
 }
 
-.block.post:first-of-type{
-  border-top: var(--border-color) 1px solid;
+.block.post.my_post{
+  border-color: var(--main-color);
+  box-shadow: 0 0 20px var(--sub-color);
+}
+
+.block.post::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #fffacd;
 }
 
 .block.post a{
@@ -359,6 +387,7 @@ a{
 .block.post .text .menu_group{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   margin-top: 5px;
 }
@@ -366,16 +395,42 @@ a{
 .block.post .text .menu_group .menu_list{
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: left;
   align-items: center;
-  margin-right: 15px;
-  cursor:pointer;
+  width: 20%;
+}
+
+.block.post .text .menu_group .menu_list object{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+  align-items: center;
 }
 
 .block.post .text .menu_group .menu_list i{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   cursor:pointer;
-  margin-right: 5px;
   color: var(--text-color);
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  transition: background-color .3s ease-in-out;
+  cursor: pointer;
+}
+
+.block.post .text .menu_group .menu_list i:hover{
+  background-color: var(--sub-color);
+}
+
+.block.post .text .menu_group .menu_list.show_relpy{
+  justify-content: left;
+  width: 100%;
+  font-size: 14px;
 }
 
 .block.post .text .menu_group .menu_list.show_relpy a{
@@ -387,3 +442,48 @@ a{
   cursor: pointer;
 }
 
+.profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: top;
+  border-bottom: 2px solid var(--main-color);
+  padding: 10px;
+}
+
+.profile .profile_heading{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 10px;
+}
+
+.profile .profile_image{
+  display: flex;
+  width: 64px;
+  height: 64px;
+  margin: 5px;
+}
+
+.profile .profile_image img{
+  display: flex;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile .profile_name{
+  display: flex;
+  font-size: 24px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.profile .profile_exp{
+  width: 100%;
+  padding: 15px;
+}

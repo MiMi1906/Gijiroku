@@ -72,7 +72,6 @@ if (!empty($_REQUEST['quote'])) {
         </form>
       </div>
     </div>
-
   </main>
 
   <?php

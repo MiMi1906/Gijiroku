@@ -55,6 +55,30 @@ if (!empty($_POST)) {
   }
 }
 
+// 返信
+if (!empty($_REQUEST['res'])) {
+  $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.id = :id ORDER BY p.created DESC';
+  $response = $db->prepare($sql);
+  $response->bindValue(':id', $_REQUEST['res']);
+  $response->execute();
+
+  $table = $response->fetch();
+  $message = '<a href="/profile/?id=' . $table['member_id'] . '">@' . $table['name'] . '</a> のスレッドへの返信';
+  $res_html = '<div class="thread_exp">' . $message . '</div>';
+}
+
+
+// 引用
+if (!empty($_REQUEST['quote'])) {
+  $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.id = :id ORDER BY p.created DESC';
+  $response = $db->prepare($sql);
+  $response->bindValue(':id', $_REQUEST['quote']);
+  $response->execute();
+
+  $table = $response->fetch();
+  $message = $table['message'] . "\n";
+}
+
 // 投稿を取得する
 $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id ORDER BY p.created DESC';
 $posts = $db->query($sql);
@@ -70,6 +94,9 @@ $posts = $db->query($sql);
 
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="/css/remodal.css">
+  <link rel="stylesheet" href="/css/remodal-default-theme.css">
+
   <link rel="stylesheet" href="/css/general.style.css">
 
   <title>議事録アプリ</title>
@@ -84,19 +111,14 @@ $posts = $db->query($sql);
   <main class="main">
     <div class="content">
       <div class="send">
-        <form action="/post/" method="post">
-          <input type="hidden" name="message" value="<?php if (!empty($message)) echo h($message); ?>">
-          <input type="hidden" name="reply_post_id" value="<?php if (!empty($_REQUEST['res'])) echo h($_REQUEST['res']); ?>">
-          <input type="hidden" name="reply_thread_name" value="<?php if (!empty($res_html)) echo h($res_html); ?>">
-          <input type="hidden" name="quote" value="<?php if (!empty($_REQUEST['quote'])) echo h($_REQUEST['quote']); ?>">
-          <div class="submit">
+        <div class="submit">
+          <a data-remodal-target="send_window">
             <button type="submit">
               <i class="fas fa-comment-alt"></i>
             </button>
-          </div>
-        </form>
+          </a>
+        </div>
       </div>
-
       <div class="message_list">
         <?php
         foreach ($posts as $post) {
@@ -113,6 +135,21 @@ $posts = $db->query($sql);
   $tpl->show(TPL_FOOTER_BAR);
   ?>
 
+  <div class="send_window remodal" data-remodal-id="send_window">
+    <form action="/" method="post">
+      <div class="res_detail">
+        <?php if (!empty($message)) echo $message ?>
+      </div>
+      <textarea name="message" id="" class="message" placeholder="意見を投稿しよう"></textarea>
+      <input type="hidden" name="reply_post_id" value="<?php if (!empty($_REQUEST['res'])) echo h($_REQUEST['res']); ?>">
+      <input type="hidden" name="reply_thread_name" value="<?php if (!empty($res_html)) echo h($res_html); ?>">
+      <input type="hidden" name="quote" value="<?php if (!empty($_REQUEST['quote'])) echo h($_REQUEST['quote']); ?>">
+      <div class="submit">
+        <input type="submit" value="投稿する">
+      </div>
+    </form>
+  </div>
+
   <!-- script -->
   <!-- emoji-button -->
   <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
@@ -120,6 +157,9 @@ $posts = $db->query($sql);
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <!-- index.script -->
   <script src="/script/index.script.js"></script>
+  <!-- remodal -->
+  <script src="/script/remodal.min.js"></script>
+
 </body>
 
 </html>
