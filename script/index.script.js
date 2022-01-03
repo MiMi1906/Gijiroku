@@ -1,6 +1,6 @@
 ajax_add_content();
 
-$(document).on('click', '.nice', function () {
+$(document).on('click', '.like', function () {
   let id = $(this).attr("id");
   $.ajax({
     url: '/nice/',
