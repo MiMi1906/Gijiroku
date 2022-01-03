@@ -47,24 +47,38 @@ $posts->execute();
     }
     ?>
     <div class="profile">
-      <div class="profile_heading">
-        <div class="profile_image">
-          <img src="/resource/image/icon/<?php echo $member['image']; ?>" alt="<?php echo $member['name']; ?>">
+      <div class="profile_content">
+        <div class="profile_heading">
+          <div class="profile_image">
+            <img src="/resource/image/icon/<?php echo $member['image']; ?>" alt="<?php echo $member['name']; ?>">
+          </div>
+          <div class="profile_name">
+            <?php echo $member['name']; ?>
+          </div>
         </div>
-        <div class="profile_name">
-          <?php echo $member['name']; ?>
+        <div class="profile_exp">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.<br>
+          Animi porro odit totam quaerat. Recusandae sapiente maxime voluptatibus, <br>
+          nostrum aperiam sed error totam, tenetur adipisci illo voluptatum.<br>
+          Beatae, omnis quo! Deleniti?<br>
+        </div>
+        <div class="profile_follow_group">
+          <div class="profile_follow_list">
+            <span class="follow_num">123</span>フォロー
+          </div>
+          <div class="profile_follow_list">
+            <span class="follow_num">123</span>サポート
+          </div>
+          <div class="profile_follow_list">
+            <span class="follow_num">123</span>フォロワー
+          </div>
+          <div class="follow_btn">
+            <input type="button" value="フォロー">
+          </div>
         </div>
       </div>
-      <div class="profile_exp">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.<br>
-        Animi porro odit totam quaerat. Recusandae sapiente maxime voluptatibus, <br>
-        nostrum aperiam sed error totam, tenetur adipisci illo voluptatum.<br>
-        Beatae, omnis quo! Deleniti?<br>
-      </div>
-
     </div>
     <div class="content">
-
       <?php if (!empty($posts)) {
         foreach ($posts as $post) {
           $tpl = new Template();
@@ -72,7 +86,7 @@ $posts->execute();
           $tpl->show(TPL_MESSAGE);
         }
       } else {
-        print('<p>この投稿は削除されたか、URLが間違っています</p>');
+        print('<p>このユーザーにはまだ投稿がありません</p>');
       }
       ?>
     </div>

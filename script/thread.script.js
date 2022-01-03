@@ -5,7 +5,7 @@ $('.like').on('click', function () {
     type: 'POST',
     dataType: 'json',
     data: {
-      'id': id
+      'id': id.slice(1)
     }
   })
     .done((data) => {

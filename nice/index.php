@@ -27,6 +27,10 @@ if (!empty($id)) {
     $like->bindValue(':created', date('Y/m/d H:i:s'));
     $like->execute();
     $like_obj['inc_dec'] = 'inc';
+    $sql = "UPDATE posts SET nice_num = nice_num + 1 WHERE id = :id";
+    $like = $db->prepare($sql);
+    $like->bindValue(':id', $id);
+    $like->execute();
   } else {
     $sql = "DELETE FROM nice WHERE member_id = :member_id AND like_post_id = :like_post_id";
     $check = $db->prepare($sql);
@@ -34,6 +38,10 @@ if (!empty($id)) {
     $check->bindValue(':like_post_id', $id);
     $check->execute();
     $like_obj['inc_dec'] = 'dec';
+    $sql = "UPDATE posts SET nice_num = nice_num - 1 WHERE id = :id";
+    $like = $db->prepare($sql);
+    $like->bindValue(':id', $id);
+    $like->execute();
   }
   $sql = 'SELECT COUNT( like_post_id ) AS cnt FROM nice WHERE like_post_id = :like_post_id';
   $likes = $db->prepare($sql);

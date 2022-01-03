@@ -8,14 +8,14 @@ $db = dbConnect();
 
 $tpl = new Template();
 
-if (empty($_REQUEST['id'])) {
+if (empty($_REQUEST['thread_id'])) {
   header('Location: /');
   exit();
 }
 
 $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :thread_id ORDER BY p.created ASC';
 $posts = $db->prepare($sql);
-$posts->bindValue(':thread_id', $_REQUEST['id']);
+$posts->bindValue(':thread_id', $_REQUEST['thread_id']);
 $posts->execute();
 
 ?>
@@ -49,7 +49,6 @@ $posts->execute();
       }
       ?>
     </div>
-
   </main>
   <?php
   $tpl->show(TPL_FOOTER_BAR);

@@ -11,9 +11,6 @@ define('TPL_FOOTER_BAR', 3);
 function dbConnect()
 {
   $dbPath = $_SERVER['DOCUMENT_ROOT'] . '/database.db';
-  if (!file_exists($dbPath)) {
-    touch($dbPath);
-  }
   try {
     $db = new PDO('sqlite:' . $dbPath);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -103,15 +100,11 @@ class Template
     $this->message = $postData['message'];
     $this->member_id = $postData['member_id'];
     $this->reply_post_id = $postData['reply_post_id'];
+    $this->nice_num = $postData['nice_num'];
     $this->thread_id = $postData['thread_id'];
     $this->created = $postData['created'];
-    $sql = 'SELECT COUNT( like_post_id ) AS cnt FROM nice WHERE like_post_id = :like_post_id';
-    $likes = $db->prepare($sql);
-    $likes->bindValue(':like_post_id', $postData['id']);
-    $likes->execute();
-    $like_cnt = $likes->fetchColumn();
-    if ($like_cnt == 0) {
-      $like_cnt = '';
+    if ($this->nice_num == 0) {
+      $this->nice_num = '';
     }
     $sql = 'SELECT * FROM nice WHERE like_post_id = :like_post_id AND member_id = :member_id';
     $likes = $db->prepare($sql);
@@ -121,9 +114,9 @@ class Template
     $like = $likes->fetch();
     $like_str = '';
     if ($like) {
-      $like_str = '<i class="fas fa-heart"></i>' . $like_cnt;
+      $like_str = '<i class="fas fa-heart"></i>' . $this->nice_num;
     } else {
-      $like_str = '<i class="far fa-heart"></i>' . $like_cnt;
+      $like_str = '<i class="far fa-heart"></i>' . $this->nice_num;
     }
     $this->like_str = $like_str;
   }
@@ -134,7 +127,11 @@ class Template
     switch ($tplType) {
       case TPL_MESSAGE:
         $tplfile = 'message.tpl.php';
-        break;
+        ob_start();
+        include($_SERVER['DOCUMENT_ROOT'] . "/tpl/{$tplfile}");
+        $data = ob_get_contents();
+        ob_end_clean();
+        return $data;
       case TPL_HEADER_BAR:
         $tplfile = 'header_bar.tpl.php';
         break;

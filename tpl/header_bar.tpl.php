@@ -2,7 +2,7 @@
   <div class="header_group">
     <div class="header_list header_menu_left menu_icon">
       <?php if ($_SERVER['REQUEST_URI'] != '/') : ?>
-        <a href="/"><i class="fas fa-chevron-left "></i></a>
+        <a onclick="history.back();"><i class="fas fa-chevron-left "></i></a>
       <?php else : ?>
         <i class="fas fa-user-circle"></i>
       <?php endif; ?>

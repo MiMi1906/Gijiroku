@@ -101,7 +101,7 @@ a{
 
 .footer_list{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 25%;
@@ -117,13 +117,11 @@ a{
 }
 
 .menu_icon a{
-  color: #000;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  color: #000;
 }
 
 .footer_list.menu_icon{
@@ -301,6 +299,10 @@ a{
   box-shadow: 0 0 20px var(--sub-color);
 }
 
+.block.post.emph{
+  border-width: 4px;
+}
+
 .block.post::after {
   content: "";
   display: inline-block;
@@ -369,10 +371,30 @@ a{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.block.post .text .message object{
+  width: 100%;
 }
 
 .block.post .text .message .thread_exp{
   font-size: 14px;
+}
+
+.block.post .text .message .quote_exp{
+  font-size: 14px;
+  width: 100%;
+  margin: 5px 0;
+  padding: 7.5px;
+  border: 1px solid var(--main-color);
+  border-radius: 10px;
+  color: #000;
+}
+
+.block.post .text .message .quote_exp .name{
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .block.post .text .message span{
@@ -447,9 +469,16 @@ a{
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  margin: 0 auto;
   align-items: top;
   border-bottom: 2px solid var(--main-color);
   padding: 10px;
+}
+
+.profile .profile_content{
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .profile .profile_heading{
@@ -473,7 +502,6 @@ a{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  cursor: pointer;
 }
 
 .profile .profile_name{
@@ -485,5 +513,53 @@ a{
 
 .profile .profile_exp{
   width: 100%;
-  padding: 15px;
+  padding: 15px 0;
+}
+
+.profile .profile_follow_group{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile .profile_follow_list{
+  display: flex;
+  justify-content: left;
+  align-items: baseline;
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+.profile .profile_follow_list span.follow_num{
+  font-size: 16px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.profile .follow_btn{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100%;
+}
+
+.profile .follow_btn input{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 30px;
+  outline: none;
+  border: none;
+  background-color: var(--main-color);
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity .3s ease-in-out;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }

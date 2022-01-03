@@ -1,7 +1,7 @@
 <footer class="footer">
   <div class="footer_group">
     <div class="footer_list menu_icon">
-      <i class="fas fa-home"></i>
+      <a href="/"><i class="fas fa-home"></i></a>
     </div>
     <div class="footer_list menu_icon">
       <i class="fas fa-bell"></i>

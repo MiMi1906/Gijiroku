@@ -1,4 +1,6 @@
-<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply <?php endif; ?><?php if ($v->member_id == $_SESSION['id']) : ?>my_post<?php endif; ?>">
+<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply <?php endif; ?><?php if ($v->member_id == $_SESSION['id']) : ?>my_post<?php endif; ?> <?php if (!empty($_REQUEST['emph_id']) && $_REQUEST['emph_id'] == $v->id) {
+                                                                                                                                                                                        echo 'emph';
+                                                                                                                                                                                      } ?>" id="<?php echo $v->id; ?>">
   <div class="image">
     <a href="/profile/?id=<?php echo h($v->member_id); ?>">
       <img src="/resource/image/icon/<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
@@ -6,7 +8,7 @@
   </div>
 
   <div class="text">
-    <div class="link" id="p<?php echo $v->thread_id; ?>">
+    <div class="link" id="p<?php echo $v->thread_id; ?> e<?php echo $v->id; ?>">
       <div class="heading">
         <div class="name">
           <?php echo h($v->name); ?>
@@ -32,7 +34,7 @@
           <a href="/?quote=<?php echo h($v->id); ?>#send_window"><i class="fas fa-quote-right"></i></a>
         </object>
       </div>
-      <div class="menu_list like" id="<?php echo $v->id; ?>">
+      <div class="menu_list like" id="n<?php echo $v->id; ?>">
         <object>
           <?php if ($v->like_str != 0) echo $v->like_str; ?>
         </object>
@@ -47,7 +49,9 @@
       <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>
         <div class="menu_list show_relpy">
           <object data="" type="">
-            <a href="/thread/?id=<?php echo h($v->thread_id); ?>">スレッドを表示</a>
+            <?php if ($_SERVER['REQUEST_URI'] == "/") : ?>
+              <a href="/thread/?thread_id=<?php echo h($v->thread_id); ?>">スレッドを表示</a>
+            <?php endif; ?>
           </object>
         </div>
       <?php endif; ?>
