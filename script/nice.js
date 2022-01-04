@@ -5,7 +5,7 @@
 // likeクラスがクリックされたとき発動
 $(document).on('click', '.like', function () {
   // idを取得
-  let id = $(this).attr("id");
+  let id = $(this).attr("id").slice(1);
   // Ajax処理
   $.ajax({
     url: '/nice/',
@@ -25,7 +25,7 @@ $(document).on('click', '.like', function () {
       } else {
         html = '<object><i class="far fa-heart"></i>' + data.like_cnt + '</object>';
       }
-      $('#' + id).html(html);
+      $('#n' + id).html(html);
     })
     .fail((_data) => {
     })

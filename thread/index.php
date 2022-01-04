@@ -13,8 +13,6 @@ if (empty($_REQUEST['thread_id'])) {
   exit();
 }
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,7 +23,7 @@ if (empty($_REQUEST['thread_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/general.style.css">
+  <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
 </head>
 

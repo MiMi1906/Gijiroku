@@ -115,7 +115,7 @@ if (!empty($_REQUEST['quote'])) {
   <link rel="stylesheet" href="/css/remodal.css">
   <link rel="stylesheet" href="/css/remodal-default-theme.css">
 
-  <link rel="stylesheet" href="/css/general.style.css">
+  <link rel="stylesheet" href="/css/general.css">
 
   <title>議事録アプリ</title>
 </head>

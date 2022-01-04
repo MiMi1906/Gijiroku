@@ -6,6 +6,8 @@ session_start();
 // データベース接続
 $db = dbConnect();
 
+$tpl = new Template();
+
 if (!empty($_COOKIE['email'])) {
   $_POST['email'] = $_COOKIE['email'];
   $_POST['password'] = $_COOKIE['password'];
@@ -53,28 +55,29 @@ if (!empty($_POST)) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
 </head>
 
 <body>
-  <p>メールアドレスとパスワードを入力してログインしてください。</p>
-  <p>ユーザー登録がまだの方はこちらからどう。</p>
-  <p>&raquo;<a href="/join/">ユーザー登録をする</a></p>
-  <form action="" method="post">
-    <?php if (!empty($error['login']) && $error['login'] == 'blank') : ?>
-      <p>* メールアドレスとパスワードを入力してください</p>
-    <?php endif; ?>
-    <?php if (!empty($error['login']) && $error['login'] == 'failed') : ?>
-      <p>* メールアドレスかパスワードが間違っています</p>
-    <?php endif; ?>
-    <label for="">メールアドレス</label><br>
-    <input type="email" name="email" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
-    <label for="">パスワード</label><br>
-    <input type="password" name="password" id=""><br>
-    <label for="">ログイン情報の記録</label><br>
-    <input type="checkbox" name="save" id="" value="on"> 次回からは自動的にログインする<br>
-    <input type="submit" value="ログインする">
-  </form>
+  <div class="login_from_background">
+    <div class="content login_from">
+      <div class="logo">Gijiroku</div>
+      <form action="" method="post">
+        <?php if (!empty($error['login']) && $error['login'] == 'blank') : ?>
+          <p>* メールアドレスとパスワードを入力してください</p>
+        <?php endif; ?>
+        <?php if (!empty($error['login']) && $error['login'] == 'failed') : ?>
+          <p>* メールアドレスかパスワードが間違っています</p>
+        <?php endif; ?>
+        <input type="email" name="email" placeholder="メールアドレス" class="login_from_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
+        <input type="password" name="password" placeholder="パスワード" id="" class="login_from_input"><br>
+        <input type="hidden" name="save" id="" value="on">
+        <input type="submit" class="submit_btn" value="ログインする">
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>

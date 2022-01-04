@@ -28,7 +28,7 @@ $posts->execute();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/general.style.css">
+  <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
 </head>
 
@@ -36,7 +36,8 @@ $posts->execute();
   <?php
   $tpl->show(TPL_HEADER_BAR);
   ?>
-  <main class="main">
+  <main class="main" id="main">
+    <form action="" autocomplete="off"><input type="hidden" id="count" name="" value="0"></form>
     <?php
     $sql = 'SELECT * FROM members WHERE id = :id';
     $profile = $db->prepare($sql);
@@ -79,23 +80,19 @@ $posts->execute();
       </div>
     </div>
     <div class="content">
-      <?php if (!empty($posts)) {
-        foreach ($posts as $post) {
-          $tpl = new Template();
-          $tpl->setValue_tpl_message($post);
-          $tpl->show(TPL_MESSAGE);
-        }
-      } else {
-        print('<p>このユーザーにはまだ投稿がありません</p>');
-      }
-      ?>
+      <div class="message_list" id="message_list">
+        <!-- メッセージをここに追加 -->
+      </div>
     </div>
   </main>
   <?php
   $tpl->show(TPL_FOOTER_BAR);
   ?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="/script/index.script.js"></script>
+  <script src="/script/ajax_add_content.js">
+  </script>
+  <script src="/script/nice.js"></script>
+  <script src="/script/show_thread.js"></script>
 </body>
 
 </html>

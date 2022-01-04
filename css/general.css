@@ -3,6 +3,7 @@
 :root{
   --main-color: #5b2c6f;
   --sub-color: #ead6f1;
+  --nice-color: #e74c3c;
   --background-color: #eee;
   --text-color: #111;
   --border-color: #888;
@@ -170,6 +171,78 @@ a{
   max-width: 600px;
   width: 90%;
   margin: 20px auto;
+}
+
+.login_from_background{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--main-color);
+}
+
+.content.login_from{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+  height: 70vh;
+  max-width: 600px;
+  border-radius: 5px;
+  background-color: var(--background-color);
+}
+
+.content.login_from .logo{
+  font-family: 'logo_font';
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.content.login_from .login_from_input{
+  margin: 10px 0; 
+  padding: 0 10px;
+  width: 60vw;
+  max-width: 400px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out;
+  border: 2px solid #888;
+  color: #555;
+  background-color: var(--background-color);
+}
+
+.content.login_from .login_from_input:focus-visible, .content.login_from .login_from_input:not(:placeholder-shown){
+  outline: none;
+  color: var(--main-color);
+  border: 2px solid var(--main-color);
+  background-color: var(--sub-color);
+}
+
+.content.login_from .submit_btn{
+  outline: none;
+  background-color: var(--main-color);
+  color: #fff;
+  margin-top: 20px;
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity .3s ease-in-out;
+}
+
+.content.login_from .submit_btn:hover{
+  opacity: .95;
+}
+
+.content.login_from .save_check:hover{
+  border: 2px solid var(--main-color);
+  background-color: var(--main-color);
 }
 
 .send{
@@ -419,7 +492,7 @@ a{
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: left;
-  align-items: center;
+  align-items: baseline;
   width: 20%;
 }
 
@@ -428,7 +501,7 @@ a{
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: left;
-  align-items: center;
+  align-items: baseline;
 }
 
 .block.post .text .menu_group .menu_list i{
@@ -441,8 +514,18 @@ a{
   height: 30px;
   width: 30px;
   border-radius: 100%;
-  transition: background-color .3s ease-in-out;
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
   cursor: pointer;
+}
+
+.block.post .text .menu_group .menu_list i.fas.fa-heart{
+  color: var(--nice-color);
+}
+
+.block.post .text .menu_group .menu_list.like i:hover{
+  color: var(--nice-color);
+  stroke: #000;
+  stroke-width: 3px;
 }
 
 .block.post .text .menu_group .menu_list i:hover{
@@ -451,8 +534,6 @@ a{
 
 .block.post .text .menu_group .menu_list.show_relpy{
   justify-content: left;
-  width: 100%;
-  font-size: 14px;
 }
 
 .block.post .text .menu_group .menu_list.show_relpy a{
