@@ -13,10 +13,7 @@ if (empty($_REQUEST['thread_id'])) {
   exit();
 }
 
-$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :thread_id ORDER BY p.created ASC';
-$posts = $db->prepare($sql);
-$posts->bindValue(':thread_id', $_REQUEST['thread_id']);
-$posts->execute();
+
 
 ?>
 <!DOCTYPE html>
@@ -36,25 +33,20 @@ $posts->execute();
   <?php
   $tpl->show(TPL_HEADER_BAR);
   ?>
-  <main class="main">
+  <main class="main" id="main">
+    <form action="" autocomplete="off"><input type="hidden" id="count" name="" value="0"></form>
     <div class="content">
-      <?php if (!empty($posts)) {
-        foreach ($posts as $post) {
-          $tpl = new Template();
-          $tpl->setValue_tpl_message($post);
-          $tpl->show(TPL_MESSAGE);
-        }
-      } else {
-        print('<p>この投稿は削除されたか、URLが間違っています</p>');
-      }
-      ?>
+      <div class="message_list" id="message_list">
+        <!-- メッセージをここに追加 -->
+      </div>
     </div>
   </main>
   <?php
   $tpl->show(TPL_FOOTER_BAR);
   ?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="/script/thread.script.js"></script>
+  <script src="/script/ajax_add_content.js"></script>
+  <script src="/script/nice.js"></script>
 </body>
 
 </html>

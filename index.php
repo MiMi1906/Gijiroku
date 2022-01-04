@@ -94,6 +94,11 @@ if (!empty($_REQUEST['quote'])) {
     '<br>' . '<object><a href="/thread/?thread_id=\1&emph_id=\2#\3"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
     $quote_str
   );
+  $message = preg_replace(
+    '|<a href="\/thread\/\?thread_id=(.*?)&emph_id=(.*?)#(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
+    '<br>' . '<object><a href="/thread/?thread_id=\1&emph_id=\2#\3"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
+    $message
+  );
   $quote_html = '<a href="/thread/?thread_id=' . $table['thread_id'] . '&emph_id=' . $table['id'] . '#' . $table['id'] . '"><object><div class="quote_exp">' . $quote_str . '</div></object></a>';
 }
 ?>
@@ -134,7 +139,7 @@ if (!empty($_REQUEST['quote'])) {
         </div>
       </div>
       <div class="message_list" id="message_list">
-
+        <!-- メッセージをここに追加 -->
       </div>
     </div>
   </main>
@@ -162,8 +167,11 @@ if (!empty($_REQUEST['quote'])) {
   <!-- script -->
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <!-- index.script -->
-  <script src="/script/index.script.js"></script>
+
+  <script src="/script/ajax_add_content.js"></script>
+  <script src="/script/nice.js"></script>
+  <script src="/script/show_thread.js"></script>
+
   <!-- remodal -->
   <script src="/script/remodal.min.js"></script>
 

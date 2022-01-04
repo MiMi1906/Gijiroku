@@ -1,15 +1,23 @@
-$('.like').on('click', function () {
+// nice.js
+// jQuery 必須
+// いいね機能用
+
+// likeクラスがクリックされたとき発動
+$(document).on('click', '.like', function () {
+  // idを取得
   let id = $(this).attr("id");
+  // Ajax処理
   $.ajax({
     url: '/nice/',
     type: 'POST',
     dataType: 'json',
     data: {
-      'id': id.slice(1)
+      'id': id
     }
   })
     .done((data) => {
       var html;
+      // カウントなどにより、表示を変える
       if (data.like_cnt == 0) {
         html = '<object><i class="far fa-heart"></i></object>';
       } else if (data.inc_dec == 'inc') {
@@ -24,4 +32,4 @@ $('.like').on('click', function () {
     .always((_data) => {
 
     });
-})
+});
