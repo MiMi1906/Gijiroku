@@ -51,7 +51,7 @@ $posts->execute();
       <div class="profile_content">
         <div class="profile_heading">
           <div class="profile_image">
-            <img src="/resource/image/icon/<?php echo $member['image']; ?>" alt="<?php echo $member['name']; ?>">
+            <img src="<?php echo $member['image']; ?>" alt="<?php echo $member['name']; ?>">
           </div>
           <div class="profile_name">
             <?php echo $member['name']; ?>

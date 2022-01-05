@@ -18,7 +18,7 @@ if (!empty($_POST)) {
   $stmt->bindValue(':name', $_SESSION['join']['name']);
   $stmt->bindValue(':email', $_SESSION['join']['email']);
   $stmt->bindValue(':password', sha1($_SESSION['join']['password']));
-  $stmt->bindValue(':image', $_SESSION['join']['image']);
+  $stmt->bindValue(':image', '/resource/image/icon/' . $_SESSION['join']['image']);
   $stmt->bindValue(':created', date('Y/m/d H:i:s'));
   $stmt->execute();
 

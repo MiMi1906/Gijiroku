@@ -3,7 +3,7 @@
                                                                                                                                                                                       } ?>" id="<?php echo $v->id; ?>">
   <div class="image">
     <a href="/profile/?id=<?php echo h($v->member_id); ?>">
-      <img src="/resource/image/icon/<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
+      <img src="<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
     </a>
   </div>
 

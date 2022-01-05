@@ -94,7 +94,7 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
       <div class="exp">メンバー登録</div>
       <form action="" method="post" enctype="multipart/form-data">
         <div class="label">ニックネーム</div>
-        <input type="text" name="name" placeholder="ニックネーム" id="" class="login_form_input" value="<?php if (!empty($_POST['name'])) echo h($_POST['name']); ?>">
+        <input type="text" name="name" placeholder="Gijiroku" id="" class="login_form_input" value="<?php if (!empty($_POST['name'])) echo h($_POST['name']); ?>">
         <?php if (!empty($error['name']) && $error['name'] == 'blank') : ?>
           <div class="error">
             ニックネームを入力してください
@@ -111,7 +111,7 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
           </div>
         <?php endif; ?>
         <div class="label">メールアドレス</div>
-        <input type="email" name="email" placeholder="メールアドレス" id="" class="login_form_input" value=" <?php if (!empty($_POST['email'])) echo h($_POST['email']); ?>">
+        <input type="email" name="email" placeholder="gijiroku@example.com" id="" class="login_form_input" value=" <?php if (!empty($_POST['email'])) echo h($_POST['email']); ?>">
         <?php if (!empty($error['email']) && $error['email'] == 'blank') : ?>
           <div class="error">
             メールアドレスを入力してください
@@ -123,7 +123,7 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
           </div>
         <?php endif; ?>
         <div class="label">パスワード</div>
-        <input type="password" name="password" placeholder="パスワード" id="" class="login_form_input">
+        <input type="password" name="password" placeholder="Password" id="" class="login_form_input">
         <?php if (!empty($error['password']) && $error['password'] == 'blank') : ?>
           <div class="error">
             パスワードを入力してください
@@ -136,7 +136,7 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
         <?php endif; ?>
         <div class="label">アイコン画像</div>
         <label class="file_input_btn">
-          <input type="file" name="image" class="file_input"><span class="file_name">ファイルを選択</span>
+          <input type="file" name="image" class="file_input" accept="image/*"><span class="file_name">ファイルを選択</span>
         </label>
         <div class="file_input_alert">
           <?php if (!empty($error['image']) && $error['image'] == 'type') : ?>
@@ -147,7 +147,6 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
             選択されていません
           <?php endif; ?>
         </div>
-
         <input type="submit" class="submit_btn" value="入力内容を確認">
       </form>
       <div class="login">

@@ -72,9 +72,9 @@ if (!empty($_POST)) {
           <div class="error">メールアドレスかパスワードが間違っています</div>
         <?php endif; ?>
         <div class="label">メールアドレス</div>
-        <input type="email" name="email" placeholder="メールアドレス" class="login_form_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
+        <input type="email" name="email" placeholder="gijiroku@example.com" class="login_form_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
         <div class="label">パスワード</div>
-        <input type="password" name="password" placeholder="パスワード" id="" class="login_form_input"><br>
+        <input type="password" name="password" placeholder="Password" id="" class="login_form_input"><br>
         <input type="hidden" name="save" id="" value="on">
         <input type="submit" class="submit_btn" value="ログインする">
       </form>

@@ -30,5 +30,4 @@ foreach ($posts as $post) {
 }
 
 echo json_encode($obj);
-
 exit;
