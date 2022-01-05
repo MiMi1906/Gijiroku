@@ -61,21 +61,26 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-  <div class="login_from_background">
-    <div class="content login_from">
+  <div class="login_form_background">
+    <div class="content login_form">
       <div class="logo">Gijiroku</div>
       <form action="" method="post">
         <?php if (!empty($error['login']) && $error['login'] == 'blank') : ?>
-          <p>* メールアドレスとパスワードを入力してください</p>
+          <div class="error">メールアドレスとパスワードを入力してください</div>
         <?php endif; ?>
         <?php if (!empty($error['login']) && $error['login'] == 'failed') : ?>
-          <p>* メールアドレスかパスワードが間違っています</p>
+          <div class="error">メールアドレスかパスワードが間違っています</div>
         <?php endif; ?>
-        <input type="email" name="email" placeholder="メールアドレス" class="login_from_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
-        <input type="password" name="password" placeholder="パスワード" id="" class="login_from_input"><br>
+        <div class="label">メールアドレス</div>
+        <input type="email" name="email" placeholder="メールアドレス" class="login_form_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
+        <div class="label">パスワード</div>
+        <input type="password" name="password" placeholder="パスワード" id="" class="login_form_input"><br>
         <input type="hidden" name="save" id="" value="on">
         <input type="submit" class="submit_btn" value="ログインする">
       </form>
+      <div class="join">
+        アカウントをお持ちでない方は<a href="/join/">こちら</a>
+      </div>
     </div>
   </div>
 </body>

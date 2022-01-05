@@ -114,9 +114,9 @@ class Template
     $like = $likes->fetch();
     $like_str = '';
     if ($like) {
-      $like_str = '<i class="fas fa-heart"></i>' . $this->nice_num;
+      $like_str = '<i class="fas fa-heart"></i><span class="nice_cnt">' . $this->nice_num . '</span>';
     } else {
-      $like_str = '<i class="far fa-heart"></i>' . $this->nice_num;
+      $like_str = '<i class="far fa-heart"></i><span class="nice_cnt">' . $this->nice_num . '</span>';
     }
     $this->like_str = $like_str;
   }

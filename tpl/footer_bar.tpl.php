@@ -7,10 +7,10 @@
       <i class="fas fa-bell"></i>
     </div>
     <div class="footer_list menu_icon">
-      <i class="fas fa-cog"></i>
+      <i class="fas fa-user-circle"></i>
     </div>
     <div class="footer_list menu_icon">
-      <i class="fas fa-user-circle"></i>
+      <a href="/logout/"><i class="fas fa-sign-out-alt"></i></a>
     </div>
   </div>
 </footer>

@@ -17,6 +17,7 @@
   src: url('/fonts/logo_font.ttf');
 }
 
+
 *{
   box-sizing: border-box;
   font-family: sans-serif;
@@ -173,7 +174,7 @@ a{
   margin: 20px auto;
 }
 
-.login_from_background{
+.login_form_background{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -182,27 +183,33 @@ a{
   background-color: var(--main-color);
 }
 
-.content.login_from{
+.content.login_form{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 80%;
-  height: 70vh;
+  min-height: 70vh;
+  padding: 30px 0;
+  margin: 20px 0;
   max-width: 600px;
-  border-radius: 5px;
+  border-radius: 7.5px;
   background-color: var(--background-color);
 }
 
-.content.login_from .logo{
+.content.login_form .logo{
   font-family: 'logo_font';
   font-size: 40px;
   margin-bottom: 20px;
 }
 
-.content.login_from .login_from_input{
-  margin: 10px 0; 
+.content.login_form .exp{
+  color: #555;
+}
+
+.content.login_form .login_form_input{
+  margin: 15px 0 5px; 
   padding: 0 10px;
   width: 60vw;
   max-width: 400px;
@@ -210,19 +217,59 @@ a{
   border-radius: 5px;
   outline: none;
   transition: border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out;
-  border: 2px solid #888;
+  border: 1px solid #888;
   color: #555;
   background-color: var(--background-color);
 }
 
-.content.login_from .login_from_input:focus-visible, .content.login_from .login_from_input:not(:placeholder-shown){
+.content.login_form.join_form .login_form_input{
+  margin: 15px 0 5px;
+}
+
+.content.login_form .login_form_input:focus-visible, .content.login_form .login_form_input:not(:placeholder-shown){
   outline: none;
   color: var(--main-color);
-  border: 2px solid var(--main-color);
+  border: 1px solid var(--main-color);
   background-color: var(--sub-color);
 }
 
-.content.login_from .submit_btn{
+.content.login_form label.file_input_btn{
+  display: flex;
+  width: 60vw;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  height: 40px;
+  margin: 15px auto 5px;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #888;
+  transition: border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out;
+  border: 1px solid #888;
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+.content.login_form label.file_input_btn .file_name{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.content.login_form .file_input_alert{
+  font-size: 12px;
+  color: #555;
+  margin-top: 2.5px;
+}
+
+.content.login_form .submit_btn{
   outline: none;
   background-color: var(--main-color);
   color: #fff;
@@ -236,14 +283,69 @@ a{
   transition: opacity .3s ease-in-out;
 }
 
-.content.login_from .submit_btn:hover{
+.content.login_form .submit_btn:hover{
   opacity: .95;
 }
 
-.content.login_from .save_check:hover{
-  border: 2px solid var(--main-color);
-  background-color: var(--main-color);
+.content.login_form .error{
+  font-size: 12px;
+  color: var(--nice-color);
 }
+
+.content.login_form.join_form .error{
+  font-size: 12px;
+  width: 60vw;
+  max-width: 400px;
+  margin: 0 auto;
+  color: var(--nice-color);
+  text-align: left;
+}
+
+.content.login_form .join, .content.login_form .login{
+  font-size: 14px;
+  color: #555;
+  margin-top: 15px;
+}
+
+.content.login_form .join a, .content.login_form .login a{
+  color: var(--main-color);
+  margin-left: 5px;
+  text-decoration: underline;
+}
+
+.content.login_form .label{
+  text-align: left;
+  margin: 10px auto -10px;
+  width: 60vw;
+  max-width: 400px;
+  font-size: 14px;
+  color: #555;
+}
+
+.content.login_form .input_file{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content.login_form .image{
+  display: flex;
+  width: 64px;
+  height: 64px;
+  margin: 15px 0 0;
+}
+
+.content.login_form .image img{
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 
 .send{
   display: flex;
@@ -419,6 +521,10 @@ a{
   width: calc(100% - 48px - 5px*4);
 }
 
+.block.post .text .link{
+  cursor: pointer;
+}
+
 .block.post .text .heading{
   display: flex;
   flex-direction: row;
@@ -522,10 +628,12 @@ a{
   color: var(--nice-color);
 }
 
+.block.post .text .menu_group .menu_list i.fas.fa-heart + .nice_cnt{
+  color: var(--nice-color);
+}
+
 .block.post .text .menu_group .menu_list.like i:hover{
   color: var(--nice-color);
-  stroke: #000;
-  stroke-width: 3px;
 }
 
 .block.post .text .menu_group .menu_list i:hover{

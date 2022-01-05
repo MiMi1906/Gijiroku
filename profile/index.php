@@ -65,17 +65,53 @@ $posts->execute();
         </div>
         <div class="profile_follow_group">
           <div class="profile_follow_list">
-            <span class="follow_num">123</span>フォロー
+            <?php
+            $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE member_id = :member_id';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':member_id', $member['id']);
+            $stmt->execute();
+            $follow = $stmt->fetchColumn();
+            ?>
+            <span class="follow_num"><?php echo $follow; ?></span>フォロー
           </div>
-          <div class="profile_follow_list">
+          <!-- <div class="profile_follow_list">
             <span class="follow_num">123</span>サポート
-          </div>
+          </div> -->
           <div class="profile_follow_list">
-            <span class="follow_num">123</span>フォロワー
+            <?php
+            $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE follow_id = :follow_id';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':follow_id', $member['id']);
+            $stmt->execute();
+            $follower = $stmt->fetchColumn();
+            ?>
+            <span class="follow_num"><?php echo $follower; ?></span>フォロワー
           </div>
-          <div class="follow_btn">
-            <input type="button" value="フォロー">
-          </div>
+          <?php
+          $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE member_id = :member_id AND follow_id = :follow_id';
+          $stmt = $db->prepare($sql);
+          $stmt->bindValue(':member_id', $_SESSION['id']);
+          $stmt->bindValue(':follow_id', $member['id']);
+          $stmt->execute();
+          $follow = $stmt->fetchColumn();
+          if ($_REQUEST['id'] != $_SESSION['id']) : ?>
+            <?php if ($follow == 0) : ?>
+              <div class="follow_btn">
+                <form action="/follow/" method="post">
+                  <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
+                  <input type="submit" value="フォロー">
+                </form>
+              </div>
+            <?php else : ?>
+              <div class="follow_btn">
+                <form action="/follow/" method="post">
+                  <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
+                  <input type="hidden" name="delete_id" value="<?php echo $_REQUEST['id']; ?>">
+                  <input type="submit" value="フォロー解除">
+                </form>
+              </div>
+            <?php endif; ?>
+          <?php endif; ?>
         </div>
       </div>
     </div>

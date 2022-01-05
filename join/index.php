@@ -29,7 +29,25 @@ if (!empty($_POST)) {
       $error['image'] = 'type';
     }
   }
-  if (empty($error)) {
+
+  if (strpos($_POST['name'], ' ')) {
+    $error['name'] = 'discrimination';
+  }
+
+  if (empty($error['name'])) {
+    $sql = 'SELECT COUNT(*) FROM members WHERE name = :name';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':name', $_POST['name']);
+    $stmt->execute();
+    $record = $stmt->fetchColumn();
+    if (
+      $record > 0
+    ) {
+      $error['name'] = 'duplicate';
+    }
+  }
+
+  if (empty($error['email'])) {
     $sql = 'SELECT COUNT(*) FROM members WHERE email = :email';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':email', $_POST['email']);
@@ -64,43 +82,82 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
 </head>
 
 <body>
-  <p>次のフォームに必要事項をご記入ください。</p>
-  <form action="" method="post" enctype="multipart/form-data">
-    <label for="">名前</label><br>
-    <input type="text" name="name" id="" value="<?php if (!empty($_POST['name'])) echo h($_POST['name']); ?>"><br>
-    <?php if (!empty($error['name']) && $error['name'] == 'blank') : ?>
-      *ニックネームを入力してください<br>
-    <?php endif; ?>
-    <label for="">メールアドレス</label><br>
-    <input type="email" name="email" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']); ?>"><br>
-    <?php if (!empty($error['email']) && $error['email'] == 'blank') : ?>
-      *メールアドレスを入力してください<br>
-    <?php endif; ?>
-    <?php if (!empty($error['email']) && $error['email'] == 'duplicate') : ?>
-      *登録されたメールアドレスはすでに登録されています<br>
-    <?php endif; ?>
-    <label for="">パスワード</label><br>
-    <input type="password" name="password" id=""><br>
-    <?php if (!empty($error['password']) && $error['password'] == 'blank') : ?>
-      *パスワードを入力してください<br>
-    <?php endif; ?>
-    <?php if (!empty($error['password']) && $error['password'] == 'length') : ?>
-      *パスワードは4文字以上で入力してください<br>
-    <?php endif; ?>
-    <label for="">アイコン用写真</label><br>
-    <?php if (!empty($error['image']) && $error['image'] == 'type') : ?>
-      *写真などは「.gif」「.jpg」「.png」の画像を指定してください<br>
-    <?php endif; ?>
-    <?php if (!empty($error)) : ?>
-      *恐れ入りますが、画像を改めて指定してください<br>
-    <?php endif; ?>
-    <input type="file" name="image" id=""><br>
-    <input type="submit" value="入力内容を確認する">
-  </form>
+  <div class="login_form_background">
+    <div class="content login_form join_form">
+      <div class="logo">Gijiroku</div>
+      <div class="exp">メンバー登録</div>
+      <form action="" method="post" enctype="multipart/form-data">
+        <div class="label">ニックネーム</div>
+        <input type="text" name="name" placeholder="ニックネーム" id="" class="login_form_input" value="<?php if (!empty($_POST['name'])) echo h($_POST['name']); ?>">
+        <?php if (!empty($error['name']) && $error['name'] == 'blank') : ?>
+          <div class="error">
+            ニックネームを入力してください
+          </div>
+        <?php endif; ?>
+        <?php if (!empty($error['name']) && $error['name'] == 'duplicate') : ?>
+          <div class="error">
+            このニックネームはすでに登録されています
+          </div>
+        <?php endif; ?>
+        <?php if (!empty($error['name']) && $error['name'] == 'discrimination') : ?>
+          <div class="error">
+            ニックネームにスペースは含めません
+          </div>
+        <?php endif; ?>
+        <div class="label">メールアドレス</div>
+        <input type="email" name="email" placeholder="メールアドレス" id="" class="login_form_input" value=" <?php if (!empty($_POST['email'])) echo h($_POST['email']); ?>">
+        <?php if (!empty($error['email']) && $error['email'] == 'blank') : ?>
+          <div class="error">
+            メールアドレスを入力してください
+          </div>
+        <?php endif; ?>
+        <?php if (!empty($error['email']) && $error['email'] == 'duplicate') : ?>
+          <div class="error">
+            このメールアドレスはすでに登録されています
+          </div>
+        <?php endif; ?>
+        <div class="label">パスワード</div>
+        <input type="password" name="password" placeholder="パスワード" id="" class="login_form_input">
+        <?php if (!empty($error['password']) && $error['password'] == 'blank') : ?>
+          <div class="error">
+            パスワードを入力してください
+          </div>
+        <?php endif; ?>
+        <?php if (!empty($error['password']) && $error['password'] == 'length') : ?>
+          <div class="error">
+            パスワードは4文字以上で入力してください
+          </div>
+        <?php endif; ?>
+        <div class="label">アイコン画像</div>
+        <label class="file_input_btn">
+          <input type="file" name="image" class="file_input"><span class="file_name">ファイルを選択</span>
+        </label>
+        <div class="file_input_alert">
+          <?php if (!empty($error['image']) && $error['image'] == 'type') : ?>
+            <div class="error">.gif, .jpg, .png の画像を指定してください</div>
+          <?php elseif (!empty($error) && empty($error['image'])) : ?>
+            <div class="error">もう一度選択してください</div>
+          <?php else : ?>
+            選択されていません
+          <?php endif; ?>
+        </div>
+
+        <input type="submit" class="submit_btn" value="入力内容を確認">
+      </form>
+      <div class="login">
+        アカウントをお持ちの方は<a href="/login/">ログイン</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/script/file_input.js"></script>
+
 </body>
 
 </html>

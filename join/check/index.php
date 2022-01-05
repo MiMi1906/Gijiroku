@@ -36,23 +36,35 @@ if (!empty($_POST)) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
 </head>
 
 <body>
-  <p>記載した内容を確認して、「登録する」ボタンをクリックしてください。</p>
-  <form action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="submit">
-    <label for="">名前</label><br>
-    <?php echo h($_SESSION['join']['name']); ?><br>
-    <label for="">メールアドレス</label><br>
-    <?php echo h($_SESSION['join']['email']); ?><br>
-    <label for="">パスワード</label><br>
-    【表示されません】<br>
-    <label for="">アイコン用写真</label><br>
-    <img src="/resource/image/icon/<?php echo h($_SESSION['join']['image']) ?>" width="100" height="100" alt=""><br>
-    <a href="/join/?action=rewrite">&laquo;&nbsp;書き直す</a> | <input type="submit" value="登録する">
-  </form>
+  <div class="login_form_background">
+    <div class="content login_form join_form">
+      <div class="logo">Gijiroku</div>
+      <div class="exp">登録内容を確認</div>
+      <form action="" method="post" enctype="multipart/form-data">
+
+        <div class="label">ニックネーム</div>
+        <input readonly type="text" name="name" placeholder="ニックネーム" id="" class="login_form_input" value="<?php echo h($_SESSION['join']['name']); ?>">
+        <div class="label">メールアドレス</div>
+        <input readonly type="email" name="email" placeholder="メールアドレス" id="" class="login_form_input" value="<?php echo h($_SESSION['join']['email']); ?>">
+        <div class="label">パスワード</div>
+        <input readonly type="text" name="password" placeholder="パスワード" id="" class="login_form_input" value="表示されません"><br>
+        <div class="label">アイコン画像</div>
+        <div class="input_file">
+          <div class="image">
+            <img src="/resource/image/icon/<?php echo h($_SESSION['join']['image']) ?>"><br>
+          </div>
+        </div>
+        <div class="join">登録内容を修正したい場合は<a href="/join/?action=rewrite">こちら</a></div>
+        <input type="submit" class="submit_btn" value="登録する">
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>

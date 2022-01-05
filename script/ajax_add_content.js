@@ -10,7 +10,6 @@ var thread_id;
 var emph_id;
 var member_id;
 
-console.log(nowURL);
 if (nowURL == '/') {
   ajaxURL = '/getPosts/root.php';
 } else if (nowURL == '/thread/') {
