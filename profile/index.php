@@ -13,10 +13,7 @@ if (empty($_REQUEST['id'])) {
   exit();
 }
 
-$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.member_id = :member_id ORDER BY p.created DESC';
-$posts = $db->prepare($sql);
-$posts->bindValue(':member_id', $_REQUEST['id']);
-$posts->execute();
+
 
 ?>
 <!DOCTYPE html>

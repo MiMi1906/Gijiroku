@@ -17,10 +17,6 @@
   src: url('/fonts/logo_font.ttf');
 }
 
-
-
-      
-
 *{
   box-sizing: border-box;
   font-family: sans-serif;
@@ -167,6 +163,8 @@ a{
   height: calc(100vh - var(--header-bar-height) - var(--footer-bar-height));
   overflow-y: scroll;
   margin: var(--footer-bar-height) auto 0;
+
+  background-color: var(--background-color);
 }
 
 .main .content{
@@ -182,12 +180,10 @@ a{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(-30deg, #5499c7, var(--main-color), #4a235a);
   background-size: 100% 100%;
 }
-
-
 
 .content.login_form{
   display: flex;
@@ -196,12 +192,13 @@ a{
   justify-content: center;
   text-align: center;
   width: 80%;
-  min-height: 70vh;
+  /* min-height: 70vh; */
   padding: 30px 0;
   margin: 20px 0;
   max-width: 600px;
   border-radius: 7.5px;
   background-color: var(--background-color);
+  box-shadow: 0 0 5px #ddd;
 }
 
 .content.login_form .logo{
@@ -255,7 +252,6 @@ a{
   border: 1px solid #888;
   cursor: pointer;
   font-size: 14px;
-
 }
 
 .content.login_form label.file_input_btn .file_name{
@@ -352,7 +348,6 @@ input[type="file"] {
   cursor: pointer;
 }
 
-
 .send{
   display: flex;
   flex-direction: column;
@@ -360,8 +355,10 @@ input[type="file"] {
 
 .send_window{
   background-color: var(--background-color);
-  border-radius: 5px;
-  padding: 25px;
+  border-radius: 7.5px;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
 }
 
 .send_window .res_detail{
@@ -371,7 +368,24 @@ input[type="file"] {
 
 .send_window .res_detail a{
   color: var(--main-color);
+}
 
+.send_window .image{
+  margin: 10px auto;
+  width: 64px;
+  height: 64px;
+}
+
+.send_window .image img{
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.send_window .exp{
+  color: #555;
 }
 
 .send_window .res_detail a:hover{
@@ -383,19 +397,23 @@ input[type="file"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100px;
+  width: 60vw;
+  max-width: 400px;
+  height: 150px;
+  margin: 20px auto;
   font-size: 16px;
-  padding: 7.5px;
+  padding: 7.5px 10px;
   resize: none;
   border: none;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top: 1px solid var(--sub-color);
-  border-bottom: 2px solid var(--main-color);
-  border-left: 1px solid var(--sub-color);
-  border-right: 1px solid var(--sub-color);
+  border-radius: 5px;
+  border: 1px solid #888;
   background-color: var(--background-color);
+}
+
+.send_window .message:not(:placeholder-shown){
+  border-color: var(--main-color);
+  background-color: var(--sub-color);
+  color: var(--main-color);
 }
 
 .send_window .message:focus-visible{
@@ -420,7 +438,7 @@ input[type="file"] {
 
 .send_window .submit{
   width: 100%;
-  text-align: right;
+  text-align: center;
 }
 
 .send_window .submit input{
@@ -433,10 +451,14 @@ input[type="file"] {
   background-color: var(--main-color);
   color: #fff;
   cursor: pointer;
-  font-weight: bold;
   transition: opacity .3s ease-in-out;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   letter-spacing: 1px;
+}
+
+.send_window .submit input:hover{
+  opacity: .95;
 }
 
 .send .submit button{
@@ -454,7 +476,6 @@ input[type="file"] {
   background-color: var(--main-color);
   color: #fff;
   cursor: pointer;
-  font-weight: bold;
   transition: opacity .3s ease-in-out;
   font-size: 20px;
 }
@@ -470,18 +491,13 @@ input[type="file"] {
   margin: 10px auto;
   padding: 10px;
   padding-bottom: 0;
-  border: var(--border-color) 2px solid;
-  box-shadow: 0 0 20px #ddd;
-  border-radius: 20px;
-}
-
-.block.post.my_post{
-  border-color: var(--main-color);
-  box-shadow: 0 0 20px var(--sub-color);
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: var(--background-color);
 }
 
 .block.post.emph{
-  border-width: 4px;
+  border-width: 3px;
 }
 
 .block.post::after {
@@ -572,8 +588,8 @@ input[type="file"] {
   width: 100%;
   margin: 5px 0;
   padding: 7.5px;
-  border: 1px solid var(--main-color);
-  border-radius: 10px;
+  border: 1px solid #888;
+  border-radius: 5px;
   color: #000;
 }
 

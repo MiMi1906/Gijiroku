@@ -19,7 +19,7 @@ if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $member = $members->fetch();
 } else {
   // ログインしていない
-  header('Location: /logout/');
+  header('Location: /login/');
   exit();
 }
 
@@ -153,6 +153,19 @@ if (!empty($_REQUEST['quote'])) {
       <div class="res_detail">
         <?php if (!empty($message)) echo $message; ?>
       </div>
+      <?php
+      $sql = 'SELECT * FROM members WHERE id = :id';
+      $profile = $db->prepare($sql);
+      $profile->bindValue(':id', $_SESSION['id']);
+      $profile->execute();
+      foreach ($profile as $m) {
+        $member = $m;
+      }
+      ?>
+      <div class="image"><img src="<?php
+                                    echo $member['image'];
+                                    ?>" alt=""></div>
+      <div class="exp">投稿を作成</div>
       <textarea name="message" id="" class="message" placeholder="意見を投稿しよう"></textarea>
       <input type="hidden" name="reply_post_id" value="<?php if (!empty($_REQUEST['res'])) echo h($_REQUEST['res']); ?>">
       <input type="hidden" name="reply_thread_name" value="<?php if (!empty($res_html)) echo h($res_html); ?>">

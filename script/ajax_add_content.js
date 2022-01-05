@@ -3,6 +3,9 @@
 // 要素追加用
 // 20件ずつ追加
 
+const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
 var nowURL = location.pathname;
 var nowParameter;
 var ajaxURL = '';
@@ -32,6 +35,7 @@ document.getElementById('main').onscroll = event => {
   if (isFullScrolled(event)) {
     // 要素を追加
     ajax_add_content();
+    _sleep(100);
   }
 }
 
