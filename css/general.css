@@ -18,6 +18,9 @@
 }
 
 
+
+      
+
 *{
   box-sizing: border-box;
   font-family: sans-serif;
@@ -180,8 +183,11 @@ a{
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--main-color);
+  background: linear-gradient(-30deg, #5499c7, var(--main-color), #4a235a);
+  background-size: 100% 100%;
 }
+
+
 
 .content.login_form{
   display: flex;
