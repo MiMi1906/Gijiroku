@@ -6,7 +6,6 @@
       <img src="<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
     </a>
   </div>
-
   <div class="text">
     <div class="link" id="p<?php echo $v->thread_id; ?> e<?php echo $v->id; ?>">
       <div class="heading">
@@ -25,11 +24,15 @@
     </div>
     <div class="menu_group">
       <div class="menu_list reply">
-        <object data="" type="">
-          <a href="/?res=<?php echo h($v->id) ?>#send_window">
-            <i class="fas fa-reply"></i>
-          </a>
-        </object>
+        <?php if ($v->type == 0) : ?>
+          <object data="" type="">
+            <a href="/?res=<?php echo h($v->id) ?>#send_window">
+              <i class="fas fa-reply"></i>
+            </a>
+          </object>
+        <?php else : ?>
+          <i class="fas fa-reply readonly"></i>
+        <?php endif; ?>
       </div>
       <div class="menu_list quote">
         <object data="" type="">

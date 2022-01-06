@@ -80,6 +80,7 @@ a{
 .header_logo a{
   width: 70%;
   color: var(--main-color);
+  text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -693,6 +694,11 @@ input[type="file"] {
   cursor: pointer;
 }
 
+.block.post .text .menu_group .menu_list i.readonly{
+  color: #888;
+  cursor: default;
+}
+
 .block.post .text .menu_group .menu_list i.fas.fa-heart{
   color: var(--nice-color);
 }
@@ -708,6 +714,10 @@ input[type="file"] {
 
 .block.post .text .menu_group .menu_list i:hover{
   background-color: var(--sub-color);
+}
+
+.block.post .text .menu_group .menu_list i.readonly:hover{
+  background-color: var(--background-color);
 }
 
 .block.post .text .menu_group .menu_list.show_relpy{
@@ -745,7 +755,7 @@ input[type="file"] {
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .profile .profile_image{
@@ -765,7 +775,6 @@ input[type="file"] {
 
 .profile .profile_name{
   display: flex;
-  font-size: 24px;
   margin-left: 10px;
   font-weight: bold;
   max-width: 60vw;
@@ -773,14 +782,14 @@ input[type="file"] {
 
 .profile .profile_name .profile_name_text{
   width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  word-break: break-word;
+  font-size: 20px;
 }
 
 .profile .profile_exp{
   width: 100%;
-  padding: 15px 0;
+  padding: 5px 10px 10px;
+  word-break: break-word;
 }
 
 .profile .profile_follow_group{

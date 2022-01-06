@@ -20,6 +20,8 @@ if (!empty($_POST)) {
   // エラー項目の確認
   if ($_POST['name'] == '') {
     $error['name'] = 'blank';
+  } else if (strlen($_POST['name']) > 25) {
+    $error['name'] = 'large';
   }
   if ($_POST['email'] == '') {
     $error['email'] = 'blank';
@@ -107,7 +109,7 @@ if (!empty($_POST)) {
   $tpl->show(TPL_HEADER_BAR);
   ?>
   <div class="main">
-    <div class="content login_form">
+    <div class="content login_form join_form">
       <form action="" method="post" enctype="multipart/form-data">
         <div class="label">ニックネーム</div>
         <input type="text" name="name" placeholder="Gijiroku" id="" class="login_form_input" value="<?php if (!empty($profile['name'])) echo h($profile['name']); ?>">
@@ -124,6 +126,11 @@ if (!empty($_POST)) {
         <?php if (!empty($error['name']) && $error['name'] == 'discrimination') : ?>
           <div class="error">
             ニックネームにスペースは含めません
+          </div>
+        <?php endif; ?>
+        <?php if (!empty($error['name']) && $error['name'] = 'large') : ?>
+          <div class="error">
+            ニックネームは25文字以内で入力してください
           </div>
         <?php endif; ?>
         <div class="label">メールアドレス</div>

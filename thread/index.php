@@ -35,7 +35,7 @@ if (empty($_REQUEST['thread_id'])) {
 
 <body>
   <?php
-  $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :id ORDER BY p.created DESC';
+  $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :id AND reply_post_id = 0 ORDER BY p.created DESC';
   $response = $db->prepare($sql);
   $response->bindValue(':id', $_REQUEST['thread_id']);
   $response->execute();

@@ -5,6 +5,9 @@ define('TPL_MESSAGE', 1);
 define('TPL_HEADER_BAR', 2);
 define('TPL_FOOTER_BAR', 3);
 
+define('MSG_TYPE_USER', 0);
+define('MSG_TYPE_RECORD', 1);
+
 // dbconnect func
 // データベース接続 (SQLite3)
 function dbConnect()
@@ -127,6 +130,7 @@ class Template
     $this->reply_post_id = $postData['reply_post_id'];
     $this->nice_num = $postData['nice_num'];
     $this->thread_id = $postData['thread_id'];
+    $this->type = $postData['type'];
     $this->created = $postData['created'];
     if ($this->nice_num == 0) {
       $this->nice_num = '';

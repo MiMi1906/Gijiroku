@@ -18,7 +18,7 @@ $member = $members->fetch();
 
 if (!empty($_POST)) {
   if ($_POST['message'] != '') {
-    $sql = 'INSERT INTO posts(member_id, message, reply_post_id, thread_id, nice_num, quote_from_id, created) VALUES(:member_id, :message, :reply_post_id, :thread_id, :nice_num, :quote_from_id, :created)';
+    $sql = 'INSERT INTO posts(member_id, message, reply_post_id, thread_id, nice_num, quote_from_id, type, created) VALUES(:member_id, :message, :reply_post_id, :thread_id, :nice_num, :quote_from_id, :type, :created)';
     $message = $db->prepare($sql);
     $reply_thread_name = '';
     if (!empty($_POST['reply_post_id'])) {
@@ -52,8 +52,8 @@ if (!empty($_POST)) {
     $message->bindValue(':nice_num', 0);
     $message->bindValue(':member_id', $member['id']);
     $message->bindValue(':message', nl2br($reply_thread_name . h($_POST['message']) . str_replace(PHP_EOL, "", $quote_name)));
+    $message->bindValue(':type', MSG_TYPE_USER);
     $message->bindValue(':created', date('Y/m/d H:i:s'));
-
     $message->execute();
 
     header('Location: /');
