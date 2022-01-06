@@ -5,13 +5,13 @@
         <?php if ($_SERVER['REQUEST_URI'] != '/') : ?>
           <a onclick="history.back();"><i class="fas fa-chevron-left"></i></a>
         <?php else : ?>
-          <a href="/profile/?id=<?php echo $_SESSION['id']; ?>"><i class="fas fa-user-circle"></i></a>
+          <a href="/"><i class="fas fa-pen-nib"></i></a>
         <?php endif; ?>
       </div>
     <?php endif; ?>
     <div class="header_list header_logo">
       <a href="/">
-        Gijiroku
+        <?php echo $v->heading; ?>
       </a>
     </div>
     <?php if (!empty($_SESSION['id'])) : ?>

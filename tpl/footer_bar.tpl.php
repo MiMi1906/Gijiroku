@@ -4,10 +4,10 @@
       <a href="/"><i class="fas fa-home"></i></a>
     </div>
     <div class="footer_list menu_icon">
-      <i class="fas fa-bell"></i>
+      <a href="/profile/?id=<?php echo $_SESSION['id']; ?>"><i class="fas fa-user-circle"></i></a>
     </div>
     <div class="footer_list menu_icon">
-      <a href="/profile/?id=<?php echo $_SESSION['id']; ?>"><i class="fas fa-user-circle"></i></a>
+      <a href="/edit/"><i class="fas fa-cog"></i></a>
     </div>
     <div class="footer_list menu_icon">
       <a href="/logout/"><i class="fas fa-sign-out-alt"></i></a>

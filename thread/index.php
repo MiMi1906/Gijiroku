@@ -25,10 +25,23 @@ if (empty($_REQUEST['thread_id'])) {
 
   <link rel="stylesheet" href="/css/general.css">
   <title>議事録アプリ</title>
+
+  <style>
+    .thread_exp {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
   <?php
+  $sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :id ORDER BY p.created DESC';
+  $response = $db->prepare($sql);
+  $response->bindValue(':id', $_REQUEST['thread_id']);
+  $response->execute();
+
+  $table = $response->fetch();
+  $tpl->setValue_tpl_header($table['name'] . ' のスレッド');
   $tpl->show(TPL_HEADER_BAR);
   ?>
   <main class="main" id="main">

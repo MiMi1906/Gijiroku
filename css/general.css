@@ -43,7 +43,9 @@ a{
   width: 100%;
   height: var(--header-bar-height);
   background-color: var(--background-color);
-  border-bottom: 2px solid var(--main-color);
+  border-bottom: 3px solid var(--main-color);
+  border-image: linear-gradient(to right, #5499c7, var(--main-color), #4a235a);
+  border-image-slice: 1;
 }
 
 .header *{
@@ -70,11 +72,17 @@ a{
 
 .header_logo{
   width: calc(100vw - var(--header-bar-height) * 2);
-  font-size: 30px;
+  font-size: 20px;
+  letter-spacing: 1px;
+
 }
 
 .header_logo a{
-  font-family: 'logo_font';
+  width: 70%;
+  color: var(--main-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .footer{
@@ -88,7 +96,9 @@ a{
   width: 100%;
   height: var(--footer-bar-height);
   background-color: var(--background-color);
-  border-top: 2px solid var(--main-color);
+  border-top: 3px solid var(--main-color);
+  border-image: linear-gradient(to left, #5499c7, var(--main-color), #4a235a);
+  border-image-slice: 1;
 }
 
 .footer_group{
@@ -133,29 +143,6 @@ a{
   background-color: var(--sub-color);
 }
 
-.emoji-picker__search{
-  height: 37.5px !important;
-}
-
-.emoji-picker__emojis{
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width:none;
-  -ms-overflow-style: none;
-}
-
-.emoji-picker__emojis::-webkit-scrollbar{
-  display: none;
-}
-
-.emoji-picker__content{
-  height: 100% !important;
-}
-
-.emoji-picker__preview{
-  height: 60px !important;
-}
-
 .main{
   display: flex;
   flex-direction: column;
@@ -175,6 +162,11 @@ a{
   margin: 20px auto;
 }
 
+.main .content.login_form{
+  display: flex;
+  border: 1px solid #888;
+}
+
 .login_form_background{
   display: flex;
   flex-direction: column;
@@ -192,9 +184,8 @@ a{
   justify-content: center;
   text-align: center;
   width: 80%;
-  /* min-height: 70vh; */
   padding: 30px 0;
-  margin: 20px 0;
+  margin: 20px auto;
   max-width: 600px;
   border-radius: 7.5px;
   background-color: var(--background-color);
@@ -224,6 +215,39 @@ a{
   color: #555;
   background-color: var(--background-color);
 }
+
+.content.login_form .bio{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  max-width: 400px;
+  height: 150px;
+  margin: 15px auto 5px;
+  font-size: 16px;
+  padding: 7.5px 10px;
+  resize: none;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: var(--background-color);
+  transition: border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.content.login_form .bio:focus-visible{
+  background-color: var(--sub-color);
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
+.content.login_form .bio:not(:placeholder-shown){
+  background-color: var(--sub-color);
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
 
 .content.login_form.join_form .login_form_input{
   margin: 15px 0 5px;
@@ -345,7 +369,6 @@ input[type="file"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  cursor: pointer;
 }
 
 .send{
@@ -362,8 +385,12 @@ input[type="file"] {
 }
 
 .send_window .res_detail{
-  width: 100%;
+  width: 60vw;
+  max-width: 400px;
   text-align: left;
+  margin: 15px auto -15px;
+  font-size: 14px;
+  color: #555;
 }
 
 .send_window .res_detail a{
@@ -371,7 +398,7 @@ input[type="file"] {
 }
 
 .send_window .image{
-  margin: 10px auto;
+  margin: 10px auto 35px;
   width: 64px;
   height: 64px;
 }
@@ -408,6 +435,13 @@ input[type="file"] {
   border-radius: 5px;
   border: 1px solid #888;
   background-color: var(--background-color);
+  transition: border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.send_window .message:focus-visible{
+  border-color: var(--main-color);
+  background-color: var(--sub-color);
+  color: var(--main-color);
 }
 
 .send_window .message:not(:placeholder-shown){
@@ -559,6 +593,14 @@ input[type="file"] {
   margin-right: 5px;
   font-size: 20px;
   font-weight: bold;
+  max-width: 70%;
+}
+
+.block.post .text .heading .name .name_text{
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .block.post .text .heading .created{
@@ -624,6 +666,11 @@ input[type="file"] {
   width: 20%;
 }
 
+.block.post .text .menu_group .menu_list.delete{
+  justify-content: right;
+  margin-left: 20%;
+}
+
 .block.post .text .menu_group .menu_list object{
   display: flex;
   flex-direction: row;
@@ -652,6 +699,7 @@ input[type="file"] {
 
 .block.post .text .menu_group .menu_list i.fas.fa-heart + .nice_cnt{
   color: var(--nice-color);
+  margin-left: -1.5px;
 }
 
 .block.post .text .menu_group .menu_list.like i:hover{
@@ -720,6 +768,14 @@ input[type="file"] {
   font-size: 24px;
   margin-left: 10px;
   font-weight: bold;
+  max-width: 60vw;
+}
+
+.profile .profile_name .profile_name_text{
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .profile .profile_exp{

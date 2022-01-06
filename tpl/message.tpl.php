@@ -11,7 +11,9 @@
     <div class="link" id="p<?php echo $v->thread_id; ?> e<?php echo $v->id; ?>">
       <div class="heading">
         <div class="name">
-          <?php echo h($v->name); ?>
+          <div class="name_text">
+            <?php echo h($v->name); ?>
+          </div>
         </div>
         <div class="created">
           <?php echo h(fuzzyTime($v->created)); ?>

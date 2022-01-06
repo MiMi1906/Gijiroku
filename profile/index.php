@@ -3,6 +3,8 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
+loginCheck();
+
 // データベース接続
 $db = dbConnect();
 
@@ -12,8 +14,6 @@ if (empty($_REQUEST['id'])) {
   header('Location: /');
   exit();
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -31,19 +31,19 @@ if (empty($_REQUEST['id'])) {
 
 <body>
   <?php
+  $sql = 'SELECT * FROM members WHERE id = :id';
+  $profile = $db->prepare($sql);
+  $profile->bindValue(':id', $_REQUEST['id']);
+  $profile->execute();
+  foreach ($profile as $m) {
+    $member = $m;
+  }
+  $tpl->setValue_tpl_header($member['name']);
   $tpl->show(TPL_HEADER_BAR);
   ?>
   <main class="main" id="main">
     <form action="" autocomplete="off"><input type="hidden" id="count" name="" value="0"></form>
-    <?php
-    $sql = 'SELECT * FROM members WHERE id = :id';
-    $profile = $db->prepare($sql);
-    $profile->bindValue(':id', $_REQUEST['id']);
-    $profile->execute();
-    foreach ($profile as $m) {
-      $member = $m;
-    }
-    ?>
+
     <div class="profile">
       <div class="profile_content">
         <div class="profile_heading">
@@ -51,14 +51,13 @@ if (empty($_REQUEST['id'])) {
             <img src="<?php echo $member['image']; ?>" alt="<?php echo $member['name']; ?>">
           </div>
           <div class="profile_name">
-            <?php echo $member['name']; ?>
+            <div class="profile_name_text">
+              <?php echo $member['name']; ?>
+            </div>
           </div>
         </div>
         <div class="profile_exp">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.<br>
-          Animi porro odit totam quaerat. Recusandae sapiente maxime voluptatibus, <br>
-          nostrum aperiam sed error totam, tenetur adipisci illo voluptatum.<br>
-          Beatae, omnis quo! Deleniti?<br>
+          <?php echo nl2br(h($member['bio'])); ?>
         </div>
         <div class="profile_follow_group">
           <div class="profile_follow_list">
@@ -108,6 +107,12 @@ if (empty($_REQUEST['id'])) {
                 </form>
               </div>
             <?php endif; ?>
+          <?php else : ?>
+            <div class="follow_btn">
+              <form action="/edit/" method="post">
+                <input type="submit" value="編集">
+              </form>
+            </div>
           <?php endif; ?>
         </div>
       </div>

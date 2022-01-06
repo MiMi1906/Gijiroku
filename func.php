@@ -1,5 +1,4 @@
 <?php
-
 // func.php
 
 define('TPL_MESSAGE', 1);
@@ -18,8 +17,34 @@ function dbConnect()
   } catch (PDOException $e) {
     echo 'データベース接続エラー : ' . $e->getMessage();
   }
-
   return $db;
+}
+
+function loginCheck()
+{
+  if (empty($_SESSION['id']) || $_SESSION['time'] + 3600 < time()) {
+    logout();
+    header('Location: /login/');
+    exit();
+  } else {
+    // ログインしている
+    $_SESSION['time'] = time();
+    return true;
+  }
+}
+
+function logout()
+{
+  session_start();
+
+  setcookie('email', '', time() - 3600, '/');
+  setcookie('password', '', time() - 3600, '/');
+  setcookie('save', '', time() - 3600, '/');
+  setcookie(session_name(), '', time() - 3600, '/');
+
+  $_SESSION = array();
+
+  session_destroy();
 }
 
 // h func
@@ -119,6 +144,11 @@ class Template
       $like_str = '<i class="far fa-heart"></i><span class="nice_cnt">' . $this->nice_num . '</span>';
     }
     $this->like_str = $like_str;
+  }
+
+  function setValue_tpl_header($heading)
+  {
+    $this->heading = $heading;
   }
 
   function show($tplType)

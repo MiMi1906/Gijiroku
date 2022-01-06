@@ -3,25 +3,18 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
+loginCheck();
+
 // データベース接続
 $db = dbConnect();
 
 $tpl = new Template();
 
-if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
-  // ログインしている
-  $_SESSION['time'] = time();
-
-  $sql = 'SELECT * FROM members WHERE id = :id';
-  $members = $db->prepare($sql);
-  $members->bindValue(':id', $_SESSION['id']);
-  $members->execute();
-  $member = $members->fetch();
-} else {
-  // ログインしていない
-  header('Location: /login/');
-  exit();
-}
+$sql = 'SELECT * FROM members WHERE id = :id';
+$members = $db->prepare($sql);
+$members->bindValue(':id', $_SESSION['id']);
+$members->execute();
+$member = $members->fetch();
 
 if (!empty($_POST)) {
   if ($_POST['message'] != '') {
@@ -123,6 +116,7 @@ if (!empty($_REQUEST['quote'])) {
 <body>
 
   <?php
+  $tpl->setValue_tpl_header('ホーム');
   $tpl->show(TPL_HEADER_BAR);
   ?>
 
@@ -150,9 +144,6 @@ if (!empty($_REQUEST['quote'])) {
 
   <div class=" send_window remodal" data-remodal-id="send_window">
     <form action="/" method="post">
-      <div class="res_detail">
-        <?php if (!empty($message)) echo $message; ?>
-      </div>
       <?php
       $sql = 'SELECT * FROM members WHERE id = :id';
       $profile = $db->prepare($sql);
@@ -162,10 +153,13 @@ if (!empty($_REQUEST['quote'])) {
         $member = $m;
       }
       ?>
+      <div class="exp">投稿を作成</div>
       <div class="image"><img src="<?php
                                     echo $member['image'];
                                     ?>" alt=""></div>
-      <div class="exp">投稿を作成</div>
+      <div class="res_detail">
+        <?php if (!empty($message)) echo $message; ?>
+      </div>
       <textarea name="message" id="" class="message" placeholder="意見を投稿しよう"></textarea>
       <input type="hidden" name="reply_post_id" value="<?php if (!empty($_REQUEST['res'])) echo h($_REQUEST['res']); ?>">
       <input type="hidden" name="reply_thread_name" value="<?php if (!empty($res_html)) echo h($res_html); ?>">
