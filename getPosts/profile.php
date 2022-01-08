@@ -13,7 +13,7 @@ $db = dbConnect();
 
 $tpl = new Template();
 
-$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.member_id = :member_id ORDER BY p.created DESC LIMIT :start_num, :end_num';
+$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.member_id = :member_id ORDER BY p.id DESC LIMIT :start_num, :end_num';
 $stmt = $db->prepare($sql);
 $stmt->bindValue(':member_id', $member_id);
 $stmt->bindValue(':start_num', $count);

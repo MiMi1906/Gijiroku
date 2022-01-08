@@ -10,7 +10,6 @@ var nowURL = location.pathname;
 var nowParameter;
 var ajaxURL = '';
 var thread_id;
-var emph_id;
 var member_id;
 
 if (nowURL == '/') {
@@ -20,7 +19,6 @@ if (nowURL == '/') {
   nowParameter = nowParameter.slice(1);
   nowParameter = nowParameter.split(/\&/);
   thread_id = nowParameter[0].replace(/[^0-9]/g, '');
-  emph_id = nowParameter[1].replace(/[^0-9]/g, '');
   ajaxURL = '/getPosts/thread.php';
 } else if (nowURL == '/profile/') {
   nowParameter = location.search;
@@ -61,7 +59,6 @@ function ajax_add_content() {
     data: {
       'count': count,
       'thread_id': thread_id,
-      'emph_id': emph_id,
       'member_id': member_id
     }
   }).done(function (data) {

@@ -722,6 +722,9 @@ input[type="file"] {
 
 .block.post .text .menu_group .menu_list.show_relpy{
   justify-content: left;
+  width: 100%;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .block.post .text .menu_group .menu_list.show_relpy a{
@@ -838,4 +841,10 @@ input[type="file"] {
   font-size: 16px;
   margin-top: 15px;
   margin-bottom: 5px;
+}
+
+@media (max-width: 400px) {
+  .block.post .text .message{
+    font-size: 14px;
+  }
 }

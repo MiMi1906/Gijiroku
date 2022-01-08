@@ -13,7 +13,7 @@ $db = dbConnect();
 
 $tpl = new Template();
 
-$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :thread_id ORDER BY p.created ASC LIMIT :start_num, :end_num';
+$sql = 'SELECT m.name, m.image, p.* FROM members m, posts p WHERE m.id = p.member_id AND p.thread_id = :thread_id ORDER BY p.id ASC LIMIT :start_num, :end_num';
 $stmt = $db->prepare($sql);
 $stmt->bindValue(':thread_id', $thread_id);
 $stmt->bindValue(':start_num', $count);
