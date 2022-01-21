@@ -83,16 +83,16 @@ if (!empty($_REQUEST['quote'])) {
   $message = '<a href="/profile/?id=' . $table['member_id'] . '">@' . $table['name'] . '</a> の投稿の引用<br>' . $table['message'];
   $quote_str = '<div class="name">' . $table['name'] . '</div>' . $table['message'];
   $quote_str = preg_replace(
-    '|<a href="\/thread\/\?thread_id=(.*?)&emph_id=(.*?)#(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
-    '<br>' . '<object><a href="/thread/?thread_id=\1&emph_id=\2#\3"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
+    '|<a href="\/thread\/\?thread_id=(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
+    '<br>' . '<object><a href="/thread/?thread_id=\1"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
     $quote_str
   );
   $message = preg_replace(
-    '|<a href="\/thread\/\?thread_id=(.*?)&emph_id=(.*?)#(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
-    '<br>' . '<object><a href="/thread/?thread_id=\1&emph_id=\2#\3"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
+    '|<a href="\/thread\/\?thread_id=(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
+    '<br>' . '<object><a href="/thread/?thread_id=\1"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
     $message
   );
-  $quote_html = '<a href="/thread/?thread_id=' . $table['thread_id'] . '&emph_id=' . $table['id'] . '#' . $table['id'] . '"><object><div class="quote_exp">' . $quote_str . '</div></object></a>';
+  $quote_html = '<a href="/thread/?thread_id=' . $table['thread_id'] . '"><object><div class="quote_exp">' . mb_strimwidth($quote_str, 0, 400, '…', 'UTF-8') . '</div></object></a>';
 }
 ?>
 <!DOCTYPE html>
@@ -158,7 +158,10 @@ if (!empty($_REQUEST['quote'])) {
                                     echo $member['image'];
                                     ?>" alt=""></div>
       <div class="res_detail">
-        <?php if (!empty($message)) echo $message; ?>
+        <?php if (!empty($message)) {
+          echo $message;
+        }
+        ?>
       </div>
       <textarea name="message" id="" class="message" placeholder="意見を投稿しよう"></textarea>
       <input type="hidden" name="reply_post_id" value="<?php if (!empty($_REQUEST['res'])) echo h($_REQUEST['res']); ?>">

@@ -204,7 +204,7 @@ a{
 }
 
 .content.login_form .login_form_input{
-  margin: 15px 0 5px; 
+  margin: 15px 0 5px;
   padding: 0 10px;
   width: 60vw;
   max-width: 400px;
@@ -656,6 +656,7 @@ input[type="file"] {
   flex-wrap: wrap;
   align-items: center;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .block.post .text .menu_group .menu_list{
@@ -665,6 +666,7 @@ input[type="file"] {
   justify-content: left;
   align-items: baseline;
   width: 20%;
+  height: 25px;
 }
 
 .block.post .text .menu_group .menu_list.delete{

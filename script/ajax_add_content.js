@@ -5,7 +5,6 @@
 
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-
 var nowURL = location.pathname;
 var nowParameter;
 var ajaxURL = '';

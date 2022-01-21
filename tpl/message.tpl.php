@@ -1,6 +1,4 @@
-<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply <?php endif; ?><?php if ($v->member_id == $_SESSION['id']) : ?>my_post<?php endif; ?> <?php if (!empty($_REQUEST['emph_id']) && $_REQUEST['emph_id'] == $v->id) {
-                                                                                                                                                                                        echo 'emph';
-                                                                                                                                                                                      } ?>" id="<?php echo $v->id; ?>">
+<div class="block post <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>reply <?php endif; ?><?php if ($v->member_id == $_SESSION['id']) : ?>my_post<?php endif; ?>" id="<?php echo $v->id; ?>">
   <div class="image">
     <a href="/profile/?id=<?php echo h($v->member_id); ?>">
       <img src="<?php echo h($v->image); ?>" alt="<?php echo h($v->name) ?>">
@@ -53,7 +51,7 @@
       </div>
       <div class="menu_list like" id="n<?php echo $v->id; ?>">
         <object>
-          <?php if ($v->like_str != 0) echo $v->like_str; ?>
+          <?php if ($v->like_str != '') echo $v->like_str; ?>
         </object>
       </div>
       <?php if ($_SESSION['id'] === $v->member_id) : ?>

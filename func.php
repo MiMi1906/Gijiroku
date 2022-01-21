@@ -8,6 +8,8 @@ define('TPL_FOOTER_BAR', 3);
 define('MSG_TYPE_USER', 0);
 define('MSG_TYPE_RECORD', 1);
 
+define('ADMIN_ID', 0);
+
 // dbconnect func
 // データベース接続 (SQLite3)
 function dbConnect()
