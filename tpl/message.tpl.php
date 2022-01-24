@@ -21,18 +21,6 @@
       </div>
     </div>
     <div class="menu_group">
-      <?php if (!empty($v->reply_post_id && $v->reply_post_id > 0)) : ?>
-        <div class="menu_list show_relpy" id="r<?php echo $v->id; ?>">
-          <object data="" type="">
-            <script>
-              var nowURL = location.pathname;
-              if (nowURL == '/') {
-                document.getElementById('r<?php echo $v->id; ?>').insertAdjacentHTML('beforeend', '<a href="/thread/?thread_id=<?php echo h($v->thread_id); ?>">スレッドを表示</a>');
-              }
-            </script>
-          </object>
-        </div>
-      <?php endif; ?>
       <div class="menu_list reply">
         <?php if ($v->type == 0) : ?>
           <object data="" type="">

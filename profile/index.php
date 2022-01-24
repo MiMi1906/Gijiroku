@@ -14,6 +14,13 @@ if (empty($_REQUEST['id'])) {
   header('Location: /');
   exit();
 }
+$sql = 'SELECT * FROM members WHERE id = :id';
+$profile = $db->prepare($sql);
+$profile->bindValue(':id', $_REQUEST['id']);
+$profile->execute();
+foreach ($profile as $m) {
+  $member = $m;
+}
 
 ?>
 <!DOCTYPE html>
@@ -26,21 +33,13 @@ if (empty($_REQUEST['id'])) {
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/general.css">
-  <title>議事録アプリ</title>
+  <title><?php echo $member['name']; ?> / Gijiroku</title>
 </head>
 
 <body>
-  <?php
-  $sql = 'SELECT * FROM members WHERE id = :id';
-  $profile = $db->prepare($sql);
-  $profile->bindValue(':id', $_REQUEST['id']);
-  $profile->execute();
-  foreach ($profile as $m) {
-    $member = $m;
-  }
-  $tpl->setValue_tpl_header($member['name']);
-  $tpl->show(TPL_HEADER_BAR);
-  ?>
+
+  <?php $tpl->setValue_tpl_header($member['name']);
+  $tpl->show(TPL_HEADER_BAR); ?>
   <main class="main" id="main">
     <form action="" autocomplete="off"><input type="hidden" id="count" name="" value="0"></form>
 
@@ -60,29 +59,49 @@ if (empty($_REQUEST['id'])) {
           <?php echo nl2br(h($member['bio'])); ?>
         </div>
         <div class="profile_follow_group">
-          <div class="profile_follow_list">
-            <?php
-            $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE member_id = :member_id';
-            $stmt = $db->prepare($sql);
-            $stmt->bindValue(':member_id', $member['id']);
-            $stmt->execute();
-            $follow = $stmt->fetchColumn();
-            ?>
-            <span class="follow_num"><?php echo $follow; ?></span>フォロー
-          </div>
-          <!-- <div class="profile_follow_list">
-            <span class="follow_num">123</span>サポート
-          </div> -->
-          <div class="profile_follow_list">
-            <?php
-            $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE follow_id = :follow_id';
-            $stmt = $db->prepare($sql);
-            $stmt->bindValue(':follow_id', $member['id']);
-            $stmt->execute();
-            $follower = $stmt->fetchColumn();
-            ?>
-            <span class="follow_num"><?php echo $follower; ?></span>フォロワー
-          </div>
+          <?php if ($member['flag'] == 1) : ?>
+            <div class="profile_follow_list">
+              <?php
+              $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE member_id = :member_id';
+              $stmt = $db->prepare($sql);
+              $stmt->bindValue(':member_id', $member['id']);
+              $stmt->execute();
+              $follow = $stmt->fetchColumn();
+              ?>
+              <a href="/member/?member_id=<?php echo $member['id']; ?>&flag=follows" class="follows"><span class="follow_num"><?php echo $follow; ?></span> フォロー</a>
+            </div>
+            <div class="profile_follow_list">
+              <?php
+              $sql = 'SELECT COUNT(*) AS support_cnt FROM support WHERE member_id = :member_id';
+              $stmt = $db->prepare($sql);
+              $stmt->bindValue(':member_id', $member['id']);
+              $stmt->execute();
+              $support = $stmt->fetchColumn();
+              ?>
+              <a href="/member/?member_id=<?php echo $member['id']; ?>&flag=supports" class="follows"><span class="follow_num"><?php echo $support; ?></span> サポート</a>
+            </div>
+            <div class="profile_follow_list">
+              <?php
+              $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE follow_id = :follow_id';
+              $stmt = $db->prepare($sql);
+              $stmt->bindValue(':follow_id', $member['id']);
+              $stmt->execute();
+              $follower = $stmt->fetchColumn();
+              ?>
+              <a href="/member/?member_id=<?php echo $member['id']; ?>&flag=followers" class="follows"><span class="follow_num"><?php echo $follower; ?></span> フォロワー</a>
+            </div>
+          <?php else : ?>
+            <div class="profile_follow_list">
+              <?php
+              $sql = 'SELECT COUNT(*) AS support_cnt FROM support WHERE support_id = :support_id';
+              $stmt = $db->prepare($sql);
+              $stmt->bindValue(':support_id', $member['id']);
+              $stmt->execute();
+              $supporter = $stmt->fetchColumn();
+              ?>
+              <a href="/member/?member_id=<?php echo $member['id']; ?>&flag=supporters" class="follows"><span class="follow_num"><?php echo $supporter; ?></span> サポーター</a>
+            </div>
+          <?php endif; ?>
           <?php
           $sql = 'SELECT COUNT(*) AS follow_cnt FROM follow WHERE member_id = :member_id AND follow_id = :follow_id';
           $stmt = $db->prepare($sql);
@@ -90,22 +109,49 @@ if (empty($_REQUEST['id'])) {
           $stmt->bindValue(':follow_id', $member['id']);
           $stmt->execute();
           $follow = $stmt->fetchColumn();
+
+          $sql = 'SELECT COUNT(*) AS support_cnt FROM support WHERE member_id = :member_id AND support_id = :support_id';
+          $stmt = $db->prepare($sql);
+          $stmt->bindValue(':member_id', $_SESSION['id']);
+          $stmt->bindValue(':support_id', $member['id']);
+          $stmt->execute();
+          $support = $stmt->fetchColumn();
+
           if ($_REQUEST['id'] != $_SESSION['id']) : ?>
-            <?php if ($follow == 0) : ?>
-              <div class="follow_btn">
-                <form action="/follow/" method="post">
-                  <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
-                  <input type="submit" value="フォロー">
-                </form>
-              </div>
+            <?php if ($member['flag'] == 0) : ?>
+              <?php if ($support == 0) : ?>
+                <div class="follow_btn">
+                  <form action="/follow/support/" method="post">
+                    <input type="hidden" name="support_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="submit" value="サポート">
+                  </form>
+                </div>
+              <?php else : ?>
+                <div class="follow_btn">
+                  <form action="/follow/support/" method="post">
+                    <input type="hidden" name="support_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="hidden" name="delete_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="submit" value="サポート解除">
+                  </form>
+                </div>
+              <?php endif; ?>
             <?php else : ?>
-              <div class="follow_btn">
-                <form action="/follow/" method="post">
-                  <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
-                  <input type="hidden" name="delete_id" value="<?php echo $_REQUEST['id']; ?>">
-                  <input type="submit" value="フォロー解除">
-                </form>
-              </div>
+              <?php if ($follow == 0) : ?>
+                <div class="follow_btn">
+                  <form action="/follow/" method="post">
+                    <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="submit" value="フォロー">
+                  </form>
+                </div>
+              <?php else : ?>
+                <div class="follow_btn">
+                  <form action="/follow/" method="post">
+                    <input type="hidden" name="follow_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="hidden" name="delete_id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="submit" value="フォロー解除">
+                  </form>
+                </div>
+              <?php endif; ?>
             <?php endif; ?>
           <?php else : ?>
             <div class="follow_btn">

@@ -16,7 +16,7 @@ $members->bindValue(':id', $_SESSION['id']);
 $members->execute();
 $member = $members->fetch();
 
-if (!empty($_POST)) {
+if (!empty($_POST['message'])) {
   if ($_POST['message'] != '') {
     $sql = 'INSERT INTO posts(member_id, message, reply_post_id, thread_id, nice_num, quote_from_id, type, created) VALUES(:member_id, :message, :reply_post_id, :thread_id, :nice_num, :quote_from_id, :type, :created)';
     $message = $db->prepare($sql);
@@ -80,8 +80,8 @@ if (!empty($_REQUEST['quote'])) {
   $response->bindValue(':id', $_REQUEST['quote']);
   $response->execute();
   $table = $response->fetch();
-  $message = '<a href="/profile/?id=' . $table['member_id'] . '">@' . $table['name'] . '</a> の投稿の引用<br>' . $table['message'];
-  $quote_str = '<div class="name">' . $table['name'] . '</div>' . $table['message'];
+  $message = '<a href="/profile/?id=' . $table['member_id'] . '">@' . $table['name'] . '</a> の投稿の引用<br>';
+  $quote_str = $table['message'];
   $quote_str = preg_replace(
     '|<a href="\/thread\/\?thread_id=(.*?)"><object><div class="quote_exp">(.*?)</div></object></a>|',
     '<br>' . '<object><a href="/thread/?thread_id=\1"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
@@ -92,7 +92,7 @@ if (!empty($_REQUEST['quote'])) {
     '<br>' . '<object><a href="/thread/?thread_id=\1"><span>' .  $_SERVER['HTTP_HOST'] . '/thread/?thread_id=\1</span></a></object>',
     $message
   );
-  $quote_html = '<a href="/thread/?thread_id=' . $table['thread_id'] . '"><object><div class="quote_exp">' . mb_strimwidth($quote_str, 0, 400, '…', 'UTF-8') . '</div></object></a>';
+  $message .= '<a href="/thread/?thread_id=' . $table['thread_id'] . '"></a><object><div class="quote_exp">' . mb_strimwidth($quote_str, 0, 400, '…', 'UTF-8') . '</div></object>';
 }
 ?>
 <!DOCTYPE html>

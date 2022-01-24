@@ -13,13 +13,14 @@ if (empty($_SESSION['join'])) {
 
 if (!empty($_POST)) {
   // 登録処理をする
-  $sql = 'INSERT INTO members(name, email, password, image, created) VALUES(:name, :email, :password, :image, :created)';
+  $sql = 'INSERT INTO members(name, email, password, image, created, flag) VALUES(:name, :email, :password, :image, :created, :flag)';
   $stmt = $db->prepare($sql);
   $stmt->bindValue(':name', $_SESSION['join']['name']);
   $stmt->bindValue(':email', $_SESSION['join']['email']);
   $stmt->bindValue(':password', sha1($_SESSION['join']['password']));
   $stmt->bindValue(':image', '/resource/image/icon/' . $_SESSION['join']['image']);
   $stmt->bindValue(':created', date('Y/m/d H:i:s'));
+  $stmt->bindValue(':created', 1);
   $stmt->execute();
 
   unset($_SESSION['join']);

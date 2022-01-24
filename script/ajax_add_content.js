@@ -23,22 +23,24 @@ if (nowURL == '/') {
   nowParameter = location.search;
   member_id = nowParameter.replace(/[^0-9]/g, '');
   ajaxURL = '/getPosts/profile.php';
+} else if (nowURL == '/record/') {
+  ajaxURL = '/getPosts/record.php';
 }
 
 // 最初に呼び出し
 ajax_add_content();
 
 document.getElementById('main').onscroll = event => {
+  _sleep(1000);
   if (isFullScrolled(event)) {
     // 要素を追加
     ajax_add_content();
-    _sleep(100);
   }
 }
 
 // 要素最下部までスクロールしたかをチェック
 function isFullScrolled(event) {
-  const positionWithAdjustmentValue = event.target.clientHeight + event.target.scrollTop - 0;
+  const positionWithAdjustmentValue = event.target.clientHeight + event.target.scrollTop + 1;
   // スクロールしていたら true を返す
   return positionWithAdjustmentValue >= event.target.scrollHeight;
 }
@@ -69,6 +71,7 @@ function ajax_add_content() {
     // 加算値 20
     count += 20;
     $("#count").val(count);
+    console.log(data);
   }).fail(function (e) {
     console.log(e);
   })

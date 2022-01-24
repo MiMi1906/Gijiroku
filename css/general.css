@@ -815,7 +815,6 @@ input[type="file"] {
 
 .profile .profile_follow_list span.follow_num{
   font-size: 16px;
-  margin-right: 5px;
   font-weight: bold;
 }
 
@@ -843,6 +842,80 @@ input[type="file"] {
   font-size: 16px;
   margin-top: 15px;
   margin-bottom: 5px;
+}
+
+.member_list{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  border: var(--border-color) 1px solid;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.member_list a{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  color: #000;
+}
+
+.member_list .image{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-self: flex-start;
+  height: 60px;
+  margin: 10px 0;
+  width: 60px;
+}
+
+.member_list .image img{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.follows{
+  color: #000;
+}
+
+.follows:hover{
+  text-decoration: underline;
+}
+
+.member_list .text{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  text-align: left;
+  padding: 0 20px;
+  width: calc(100% - 60px);
+}
+
+.member_list .text .heading{
+  display: flex;
+  align-self: start;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.member_list .text .exp{
+  display: flex;
+  align-self: start;
 }
 
 @media (max-width: 400px) {

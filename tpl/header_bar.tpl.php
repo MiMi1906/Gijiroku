@@ -16,7 +16,7 @@
     </div>
     <?php if (!empty($_SESSION['id'])) : ?>
       <div class="header_list header_menu_right menu_icon">
-        <i class="fas fa-search"></i>
+        <i class="fas fa-question"></i>
       </div>
     <?php endif; ?>
   </div>
